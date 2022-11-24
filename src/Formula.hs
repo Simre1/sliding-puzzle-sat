@@ -1,11 +1,8 @@
 module Formula where
 
 import Data.Text (Text, pack, unpack)
-import Data.Text.Encoding (decodeUtf8Lenient)
-import Data.ByteString (toStrict)
 import Data.List ( foldl' )
 import qualified Text.Builder as B
-import System.Process.Typed ( readProcessStdout_, shell )
 import qualified Data.Text.IO as T
 
 
@@ -79,14 +76,6 @@ makeLimbooleFormula literalToText formula = B.run $ transform formula
     transform (Equivalence a b) = combine "<->" a b
 
     combine operator a b = "(" <> transform a <> " " <> operator <> " " <> transform b <> ")"
-
-runLimbooleSatisfiability :: (a -> Text) -> Formula a -> IO ()
-runLimbooleSatisfiability literalToText formula = do
-  outputBS <- readProcessStdout_ $ 
-    shell ("echo \"" ++ unpack limbooleFormula ++ "\" | limboole")
-  let outputText = decodeUtf8Lenient $ toStrict outputBS
-  T.putStrLn outputText
-  where limbooleFormula = makeLimbooleFormula literalToText formula
 
 printFormula :: (a -> Text) -> Formula a -> IO ()
 printFormula literalToText formula = T.putStrLn limbooleFormula
