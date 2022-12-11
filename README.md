@@ -12,7 +12,7 @@ You start with a 3x3 field of numbers from 0 to 8 where each number occurs once:
 1 0 7
 ```
 
-You may swap numbers with the `0` vertically and horizontically. You need to rearrange the numbers in an ascending manner:
+The game rules state that you can only swap numbers with the `0` vertically and horizontically. The game goal is to rearrange the numbers in an ascending manner by swapping with the `0`:
 
 ```
 1 2 3
